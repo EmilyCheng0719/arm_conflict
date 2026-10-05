@@ -1,0 +1,15 @@
+Create a separate R script named scripts/create_final_data_agent.R using the
+raw data. Do not read, change or overwrite create_final_data.R or final_data.csv.
+
+Use a reusable function to reshape the four mortality tables. Restrict disaster
+records to 2000–2019 and create earthquake and drought indicators. Sum battle
+related deaths within iso, year and conflict_id, then code a country-year as
+exposed when any conflict has at least 25 deaths. Shift conflict year forward
+by one for the lagged exposure. Treat rows with both conflict_id and best
+missing as non-event placeholders; retain missing mortality and covariate values.
+
+Join on iso and year using the covariate panel as the base. Expected output:
+data/processed/final_data_agent.csv, 186 countries, 2000–2019, 3,720 rows and
+17 columns, one row per country-year. Sort by iso and year. Compare values and
+missing-value locations against final_data.csv, allowing column order to differ.
+Explain any differences and compare correctness, clarity and efficiency.

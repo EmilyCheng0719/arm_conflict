@@ -1,0 +1,35 @@
+{
+  "rows": 3720,
+  "countries": 186,
+  "columns": 17,
+  "indicators": {
+    "earthquake": 310,
+    "drought": 325,
+    "armed_conflict": 691
+  },
+  "missing": {
+    "iso": 0,
+    "year": 0,
+    "gdp_1000": 62,
+    "oecd": 0,
+    "pop_dens": 20,
+    "urban": 20,
+    "age_dep": 0,
+    "male_edu": 20,
+    "temp": 20,
+    "rainfall_1000": 20,
+    "maternal_mortality": 426,
+    "infant_mortality": 20,
+    "neonatal_mortality": 20,
+    "under5_mortality": 20,
+    "earthquake": 0,
+    "drought": 0,
+    "armed_conflict": 0
+  },
+  "comparison": "R-generated outputs agree: all.equal returned TRUE.",
+  "r_version": "4.3.3",
+  "median_elapsed_seconds": {
+    "main": 0.274,
+    "alternative": 0.287
+  }
+}

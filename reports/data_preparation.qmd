@@ -1,0 +1,83 @@
+---
+title: "Week 3: Preparing the armed conflict data"
+format: html
+---
+
+## Data preparation
+
+The panel contains 186 countries for 2000–2019. The covariate table was used as
+its base. Four World Bank mortality tables were converted from wide to long
+format with one reusable function and joined by ISO code and year.
+
+Disaster records were restricted to earthquakes and droughts in 2000–2019.
+Multiple events of the same type in a country-year were collapsed into one
+binary indicator.
+
+Conflict event deaths were summed within country, year and conflict ID.
+A country-year was coded as exposed if at least one conflict reached 25
+battle-related deaths. The conflict year was increased by one before merging,
+so the outcome in year t is matched to conflict in year t-1. This follows the
+UCDP conflict definition and one-year lag described in Jawad et al. (2021),
+Methods, pp. 4–6, doi:10.1371/journal.pmed.1003810.
+
+There are 2,696 source rows with both conflict ID and death count missing.
+These were treated as non-event placeholders, rather than missing measurements
+for an identified conflict. Every analysis country-year has a corresponding
+row in the source conflict panel after shifting the year. Country-years with
+no qualifying conflict were coded 0. No mortality or covariate values were imputed.
+
+## Results and checks
+
+The final table contains 3,720 rows and 17 columns, with one row per country-year.
+There are 691 exposed country-years (using the previous year's conflict),
+310 earthquake country-years and 325 drought country-years.
+
+| Check | Result |
+|---|---|
+| Countries | 186 |
+| Years | 2000–2019 |
+| Duplicate country-year keys | 0 |
+| Missing disaster/conflict indicators | 0 |
+| Output comparison | All values and missing-value locations agree |
+
+The source files used in this assignment differ from the paper's historical
+analysis sample. The supplied 186-country panel was retained; the paper's
+181-country sample and published counts were not imposed.
+
+## Comparison of approaches
+
+Both R scripts were run using R 4.3.3, tidyverse 2.0.0 and janitor 2.2.1.
+After sorting rows and aligning columns, `all.equal()` returned `TRUE`.
+The outputs agree in all values and missing-value locations. Both approaches
+therefore produce the same checked analysis table.
+
+The main script explicitly joins the four mortality tables and uses grouped
+summaries to build the binary indicators. The alternative uses `map()` and
+`reduce()` for mortality tables, `pivot_wider()` for disasters, and filters
+qualifying conflicts before extracting unique country-years.
+
+Each script was timed five times in the same R session, with packages already
+loaded and execution order alternated. Timings include reading source files,
+processing and writing the output. Median elapsed time was 0.274 seconds for
+the main script and 0.287 seconds for the alternative. The small difference
+and overlapping measurements do not establish a general speed advantage.
+The full measurements are in `runtime_comparison.csv`.
+
+For these four outcomes, the main script is preferred because the joins and
+indicator definitions are easy to inspect, and it was slightly faster by
+median elapsed time in this check. The alternative is easier to extend to
+additional mortality outcomes and retains fewer conflict rows before joining,
+but that did not produce a clear overall runtime improvement here. No data
+differences were found, so no correction was required after comparison.
+
+## Files and use
+
+- `scripts/create_final_data.R`: main preparation script.
+- `scripts/create_final_data_agent.R`: separate alternative script.
+- `scripts/compare_data.R`: checks the two output tables.
+- `data/processed/final_data.csv`: final analysis data.
+- `data/processed/final_data_agent.csv`: comparison output.
+- `reports/comparison_instructions.txt`: task specification for the separate script.
+
+Run the two preparation scripts from the project root with `tidyverse` and
+`janitor` installed, then run `compare_data.R`.
