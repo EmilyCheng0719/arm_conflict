@@ -1,0 +1,62 @@
+# CHL5233 Week 7: regression in-class assignment
+# Run from the root of the arm_conflict GitHub repository.
+# The input data already contain armed_conflict lagged by one year.
+
+library(plm)
+library(texreg)
+
+dir.create('output', showWarnings = FALSE, recursive = TRUE)
+finaldata <- read.csv('data/processed/final_data.csv', stringsAsFactors = FALSE)
+
+# 1. Log-transform GDP per capita (already measured in US$1,000).
+stopifnot(all(finaldata$gdp_1000[!is.na(finaldata$gdp_1000)] > 0))
+finaldata$loggdp <- log(finaldata$gdp_1000)
+
+# 2. Fit four country-and-year fixed-effects models using plm().
+outcomes <- c('maternal_mortality', 'under5_mortality',
+              'infant_mortality', 'neonatal_mortality')
+predictors <- c('armed_conflict', 'loggdp', 'oecd', 'pop_dens',
+                'urban', 'age_dep', 'male_edu', 'temp',
+                'rainfall_1000', 'earthquake', 'drought')
+
+models <- lapply(outcomes, function(y) {
+  plm(reformulate(predictors, response = y),
+      data = finaldata,
+      index = c('iso', 'year'),
+      model = 'within',
+      effect = 'twoways')
+})
+names(models) <- c('Maternal', 'Under-5', 'Infant', 'Neonatal')
+
+# 3. Output the Table 2-style regression table.
+# CI display uses conventional model-based standard errors from plm().
+htmlreg(models,
+        file = 'output/regression_table.html',
+        custom.model.names = names(models),
+        caption = 'Mortality outcomes and armed conflict in the previous year',
+        caption.above = TRUE,
+        ci.force = TRUE,
+        ci.force.level = 0.95,
+        digits = 3)
+
+# Save coefficients in a machine-readable format for verification.
+result <- do.call(rbind, lapply(seq_along(models), function(i) {
+  m <- models[[i]]
+  s <- summary(m)$coefficients
+  df <- df.residual(m)
+  critical <- qt(0.975, df)
+  data.frame(outcome = outcomes[i],
+             term = rownames(s),
+             estimate = s[, 1],
+             std_error = s[, 2],
+             t_value = s[, 3],
+             p_value = s[, 4],
+             ci_lower = s[, 1] - critical * s[, 2],
+             ci_upper = s[, 1] + critical * s[, 2],
+             row.names = NULL)
+}))
+write.csv(result, 'output/regression_results.csv', row.names = FALSE)
+
+# Check observation counts; no missing values were imputed.
+print(sapply(models, nobs))
+print(lapply(models, summary))
