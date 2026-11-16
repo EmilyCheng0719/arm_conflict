@@ -1,0 +1,59 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 9 | Complete cases and multiple imputation</title>
+<style>body{font:15px system-ui,sans-serif;color:#152637;margin:2rem auto;padding:0 1rem;max-width:850px}h1{font-size:1.5rem}table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{text-align:left;padding:.5rem;border-bottom:1px solid #dce3e9}thead{background:#17354d;color:white}.group{background:#eaf0f5}td{white-space:nowrap}p{line-height:1.45}@media print{body{margin:0}thead{color:#152637;background:white}tr{break-inside:avoid}}</style>
+<h1>Armed conflict and mortality</h1>
+<table aria-label="Comparison of regression estimates and 95% confidence intervals">
+<thead><tr><th scope="col">Predictor</th><th scope="col">Complete cases<br>Estimate [95% CI]</th><th scope="col">Multiple imputation<br>Estimate [95% CI]</th></tr></thead>
+<tbody>
+<tr class="group"><th colspan="3">Maternal mortality</th></tr>
+<tr><th scope="row">Armed conflict</th><td>33.309 [24.561, 42.057]</td><td>23.111 [14.224, 31.998]</td></tr>
+<tr><th scope="row">Log GDP per capita</th><td>-27.713 [-37.005, -18.421]</td><td>-29.084 [-38.833, -19.334]</td></tr>
+<tr><th scope="row">OECD membership</th><td>28.124 [-2.565, 58.813]</td><td>28.693 [-1.982, 59.369]</td></tr>
+<tr><th scope="row">Population density</th><td>-0.428 [-1.173, 0.317]</td><td>-0.472 [-1.244, 0.300]</td></tr>
+<tr><th scope="row">Urban population</th><td>-8.302 [-10.241, -6.362]</td><td>-8.014 [-9.931, -6.096]</td></tr>
+<tr><th scope="row">Age dependency</th><td>-0.597 [-1.256, 0.063]</td><td>-0.113 [-0.732, 0.506]</td></tr>
+<tr><th scope="row">Male education</th><td>-60.539 [-72.214, -48.863]</td><td>-61.950 [-73.139, -50.761]</td></tr>
+<tr><th scope="row">Temperature</th><td>10.631 [4.386, 16.876]</td><td>13.350 [6.904, 19.795]</td></tr>
+<tr><th scope="row">Rainfall</th><td>-4.723 [-16.784, 7.338]</td><td>-5.705 [-18.040, 6.631]</td></tr>
+<tr><th scope="row">Earthquake</th><td>4.473 [-4.714, 13.659]</td><td>4.478 [-5.117, 14.073]</td></tr>
+<tr><th scope="row">Drought</th><td>-1.252 [-9.449, 6.945]</td><td>-0.073 [-8.310, 8.165]</td></tr>
+<tr class="group"><th colspan="3">Under-five mortality</th></tr>
+<tr><th scope="row">Armed conflict</th><td>2.752 [1.356, 4.148]</td><td>2.442 [1.059, 3.824]</td></tr>
+<tr><th scope="row">Log GDP per capita</th><td>-8.729 [-10.167, -7.290]</td><td>-8.795 [-10.256, -7.334]</td></tr>
+<tr><th scope="row">OECD membership</th><td>6.622 [2.153, 11.091]</td><td>6.900 [2.387, 11.413]</td></tr>
+<tr><th scope="row">Population density</th><td>-0.345 [-0.459, -0.232]</td><td>-0.297 [-0.411, -0.183]</td></tr>
+<tr><th scope="row">Urban population</th><td>-1.735 [-2.028, -1.442]</td><td>-1.748 [-2.043, -1.452]</td></tr>
+<tr><th scope="row">Age dependency</th><td>-0.054 [-0.150, 0.041]</td><td>-0.044 [-0.140, 0.051]</td></tr>
+<tr><th scope="row">Male education</th><td>-8.985 [-10.655, -7.315]</td><td>-9.199 [-10.871, -7.526]</td></tr>
+<tr><th scope="row">Temperature</th><td>2.425 [1.415, 3.435]</td><td>2.532 [1.520, 3.544]</td></tr>
+<tr><th scope="row">Rainfall</th><td>-0.043 [-1.953, 1.868]</td><td>-0.037 [-1.939, 1.865]</td></tr>
+<tr><th scope="row">Earthquake</th><td>1.630 [0.163, 3.096]</td><td>1.623 [0.147, 3.100]</td></tr>
+<tr><th scope="row">Drought</th><td>0.940 [-0.338, 2.218]</td><td>0.795 [-0.476, 2.065]</td></tr>
+<tr class="group"><th colspan="3">Infant mortality</th></tr>
+<tr><th scope="row">Armed conflict</th><td>1.575 [0.863, 2.286]</td><td>1.428 [0.720, 2.137]</td></tr>
+<tr><th scope="row">Log GDP per capita</th><td>-6.145 [-6.878, -5.412]</td><td>-6.176 [-6.924, -5.429]</td></tr>
+<tr><th scope="row">OECD membership</th><td>3.221 [0.943, 5.498]</td><td>3.395 [1.084, 5.706]</td></tr>
+<tr><th scope="row">Population density</th><td>-0.183 [-0.241, -0.125]</td><td>-0.152 [-0.210, -0.094]</td></tr>
+<tr><th scope="row">Urban population</th><td>-1.007 [-1.156, -0.858]</td><td>-1.016 [-1.167, -0.864]</td></tr>
+<tr><th scope="row">Age dependency</th><td>0.045 [-0.004, 0.094]</td><td>0.048 [-0.001, 0.097]</td></tr>
+<tr><th scope="row">Male education</th><td>-4.808 [-5.660, -3.957]</td><td>-4.966 [-5.823, -4.109]</td></tr>
+<tr><th scope="row">Temperature</th><td>1.155 [0.640, 1.670]</td><td>1.208 [0.689, 1.726]</td></tr>
+<tr><th scope="row">Rainfall</th><td>0.016 [-0.958, 0.989]</td><td>-0.003 [-0.978, 0.973]</td></tr>
+<tr><th scope="row">Earthquake</th><td>0.880 [0.132, 1.628]</td><td>0.872 [0.116, 1.628]</td></tr>
+<tr><th scope="row">Drought</th><td>0.729 [0.078, 1.381]</td><td>0.619 [-0.032, 1.270]</td></tr>
+<tr class="group"><th colspan="3">Neonatal mortality</th></tr>
+<tr><th scope="row">Armed conflict</th><td>0.125 [-0.152, 0.402]</td><td>0.105 [-0.171, 0.382]</td></tr>
+<tr><th scope="row">Log GDP per capita</th><td>-3.175 [-3.461, -2.890]</td><td>-3.193 [-3.485, -2.901]</td></tr>
+<tr><th scope="row">OECD membership</th><td>1.219 [0.333, 2.106]</td><td>1.283 [0.381, 2.184]</td></tr>
+<tr><th scope="row">Population density</th><td>-0.054 [-0.076, -0.031]</td><td>-0.039 [-0.062, -0.017]</td></tr>
+<tr><th scope="row">Urban population</th><td>-0.386 [-0.444, -0.328]</td><td>-0.386 [-0.445, -0.328]</td></tr>
+<tr><th scope="row">Age dependency</th><td>0.044 [0.025, 0.063]</td><td>0.044 [0.025, 0.064]</td></tr>
+<tr><th scope="row">Male education</th><td>-1.325 [-1.656, -0.993]</td><td>-1.411 [-1.745, -1.077]</td></tr>
+<tr><th scope="row">Temperature</th><td>0.303 [0.103, 0.504]</td><td>0.312 [0.110, 0.514]</td></tr>
+<tr><th scope="row">Rainfall</th><td>-0.131 [-0.510, 0.248]</td><td>-0.168 [-0.549, 0.213]</td></tr>
+<tr><th scope="row">Earthquake</th><td>0.449 [0.158, 0.740]</td><td>0.438 [0.143, 0.733]</td></tr>
+<tr><th scope="row">Drought</th><td>0.403 [0.149, 0.656]</td><td>0.347 [0.093, 0.601]</td></tr>
+</tbody></table>
+<p>Both analyses include country and year fixed effects. Multiple imputation used 10 imputed datasets and 20 iterations. MI estimates and confidence intervals were pooled using Rubin&#39;s rules.</p>
+</html>
